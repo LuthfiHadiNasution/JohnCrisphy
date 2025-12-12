@@ -48,7 +48,7 @@
 
 <script>
 function kirimWA(event) {
-    event.preventDefault(); // cegah reload halaman
+    event.preventDefault();
 
     let nama = document.getElementById("nama").value;
     let alamat = document.getElementById("alamat").value;
@@ -68,7 +68,7 @@ function kirimWA(event) {
 
     setTimeout(() => {
         let message =
-            "Order Baru\n\n" +
+            "Pesan Dari Pelanggan:\n\n" +
             "Nama: " + nama + "\n" +
             "Alamat: " + alamat + "\n" +
             "Deskripsi:\n" + deskripsi;
@@ -76,7 +76,7 @@ function kirimWA(event) {
         let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
         window.open(url, "_blank");
 
-        submitBtn.innerHTML = 'Kirim ke WhatsApp';
+        submitBtn.innerHTML = 'Sedang Mengirim';
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
     }, 1000);
@@ -84,4 +84,5 @@ function kirimWA(event) {
 </script>
 
 </body>
+
 </html>
