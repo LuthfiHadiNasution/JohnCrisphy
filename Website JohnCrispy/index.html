@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JohnCrispy - Beranda</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-logo">
+        <img src="assets/images/logo.png" alt="logo">
+        <span>JohnCrispy</span>
+        </div>
+        <nav class="nav-link">
+            <a href="index.html" class="active">Beranda</a>
+            <a href="menu.html">Menu</a>
+            <a href="about.html">Tentang</a>
+            <a href="contact.html">Kontak Owner</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <video autoplay loop muted playsinline class="bg-video">
+            <source src="assets/videos/bg-video.mp4" type="video/mp4">
+        </video>
+
+        <h1>Selamat Datang</h1>
+        <p>
+            Selamat datang di JohnCrispy!  
+            Kami menyediakan snack pilihan dengan rasa yang bikin nagih:  
+            Basreng Original, Basreng Pedas, Keripik Pisang Matcha, dan Keripik Pisang Coklat.  
+            Yuk cek menu dan order sekarang juga sebelum kehabisan!
+        </p>
+ 
+        <a href="menu.html">Daftar Menu</a>
+    </div>
+
+    <footer class="footer">
+        <h3>Supported By</h3>
+
+        <div class="support-logos">
+            <div class="logo-box">
+                <img src="assets/images/chatgpt.jpg" alt="ChatGPT">
+            </div>
+            <div class="logo-box">
+                <img src="assets/images/axisnet.jpg" alt="Axisnet">
+            </div>
+            <div class="logo-box">
+                <img src="assets/images/vercel.png" alt="Vercel Hosting">
+            </div>
+            <div class="logo-box">
+                <img src="assets/images/tiktok.jpg" alt="Tiktok">
+            </div>
+        </div>
+
+        <p class="footer-text">© 2025 — JohnCrispy Store. All Rights Reserved</p>
+    </footer>
+
+    <button id="sound-btn" class="sound-btn">🔇 OFF</button>
+
+    <audio id="bgm" loop>
+        <source src="assets/audios/backsound.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+    let audio = document.getElementById("bgm");
+    let btn = document.getElementById("sound-btn");
+    let isPlaying = false;
+
+    btn.addEventListener("click", function () {
+        toggleSound();
+    });
+
+    document.addEventListener("click", function () {
+        if (!isPlaying) {
+            toggleSound();
+        }
+    }, { once: true });
+
+    function toggleSound() {
+        if (isPlaying) {
+            audio.pause();
+            btn.textContent = "🔇 OFF";
+            isPlaying = false;
+        } else {
+            audio.play();
+            btn.textContent = "🔊 ON";
+            isPlaying = true;
+        }
+    }
+    </script>
+
+</body>
+</html>

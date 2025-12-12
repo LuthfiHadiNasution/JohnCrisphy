@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SA-MP - Payments</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: rgb(72, 66, 4);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            width: 95%;
+            max-width: 450px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: rgb(159, 148, 24);
+            border: none;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        button:hover {
+            background: rgb(200, 185, 112);
+        }
+
+        .loading-dots {
+            display: inline-block;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .loading-dots span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin: 0 2px;
+            background: white;
+            border-radius: 50%;
+            animation: bounce 1s infinite;
+        }
+
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        .btn-kembali {
+            display: block;
+            width: 95%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #232407;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-kembali:hover {
+            background: #6f6629;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Form Pembayaran & Order</h2>
+
+    <label>Nama</label>
+    <input type="text" id="nama" placeholder="Masukkan nama kamu">
+
+    <label>Alamat</label>
+    <input type="text" id="alamat" placeholder="Masukkan alamat kamu">
+
+    <label>Pilih Layanan</label>
+    <select id="layanan">            
+        <option value="Basreng Original">Basreng Original</option>
+        <option value="Basreng Pedas">Basreng Pedas</option>
+        <option value="Keripik Pisang Original">Keripik Pisang Original</option>
+        <option value="Keripik Pisang Coklat">Keripik Pisang Coklat</option>
+        <option value="Keripik Pisang Matcha">Keripik Pisang Matcha</option>
+    </select>
+
+    <label>Catatan Order</label>
+    <textarea id="deskripsi" placeholder="Tulis orderan kamu secara detail..."></textarea>
+
+    <button id="submitBtn" onclick="kirimWA()">Kirim ke WhatsApp
+        <div class="loading-dots" style="display:none;">
+            <span></span><span></span><span></span>
+        </div>
+    </button> <br>
+
+    <a href="menu.html" class="btn-kembali">Kembali</a>
+</div>
+
+<script>
+function kirimWA() {
+    let nama = document.getElementById("nama").value;
+    let alamat = document.getElementById("alamat").value;
+    let layanan = document.getElementById("layanan").value;
+    let deskripsi = document.getElementById("deskripsi").value;
+    let phone = "6283100256879";
+
+    if (nama.trim() === "" || alamat.trim() === "" || deskripsi.trim() === "") {
+        alert("Semua data harus diisi!");
+        return;
+    }
+
+    let submitBtn = document.getElementById("submitBtn");
+    let loadingDots = submitBtn.querySelector(".loading-dots");
+
+    // Tampilkan loading
+    loadingDots.style.display = "inline-block";
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = 0.7;
+
+    // Delay sedikit agar animasi kelihatan
+    setTimeout(() => {
+        let message =
+            "Order Baru dari Website\n\n" +
+            "Nama: " + nama + "\n" +
+            "Alamat: " + alamat + "\n" +
+            "Layanan: " + layanan + "\n" +
+            "Catatan:\n" + deskripsi;
+
+        let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+        window.open(url, "_blank");
+
+        // Reset tombol
+        loadingDots.style.display = "none";
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = 1;
+    }, 1000); // animasi 1 detik
+}
+</script>
+
+</body>
+</html>

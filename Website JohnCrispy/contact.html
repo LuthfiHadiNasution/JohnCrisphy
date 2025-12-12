@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JohnCrispy - Kontak</title>
+    <link rel="stylesheet" href="assets/contact.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-logo">
+        <img src="assets/images/logo.png" alt="logo">
+        <span>JohnCrispy</span>
+    </div>
+    <nav class="nav-link">
+        <a href="index.html">Beranda</a>
+        <a href="menu.html">Menu</a>
+        <a href="about.html">Tentang</a>
+        <a href="contact.html" class="active">Kontak</a>
+    </nav>
+</header>
+
+<section class="contact-container">
+    <div class="contact-card">
+
+        <h1>Hubungi Kami</h1>
+        <p class="subtitle">Punya pertanyaan atau mau order? Silakan hubungi langsung!</p>
+
+        <div class="contact-info">
+            <p><strong>WhatsApp:</strong> <a href="https://wa.me/6283100256879">0831-0025-6879</a></p>
+            <p><strong>Email:</strong> <a href="mailto:sobathoror2@gmail.com">sobathoror2@gmail.com</a></p>
+            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/jhonc_rispy">@JohnCrispy</a></p>
+        </div>
+
+        <h2>Kirim Pesan Cepat</h2>
+
+        <form class="contact-form" onsubmit="kirimWA(event)">
+            <input type="text" id="nama" placeholder="Nama Anda" required>
+            <input type="text" id="alamat" placeholder="Alamat Anda" required>
+            <textarea id="deskripsi" placeholder="Pesan Anda..." required></textarea>
+
+            <button type="submit" id="submitBtn">Kirim ke WhatsApp</button>
+        </form>
+
+    </div>
+</section>
+
+<script>
+function kirimWA(event) {
+    event.preventDefault(); // cegah reload halaman
+
+    let nama = document.getElementById("nama").value;
+    let alamat = document.getElementById("alamat").value;
+    let deskripsi = document.getElementById("deskripsi").value;
+    let phone = "6283100256879";
+
+    if(nama.trim() === "" || alamat.trim() === "" || deskripsi.trim() === "") {
+        alert("Semua data harus diisi!");
+        return;
+    }
+
+    let submitBtn = document.getElementById("submitBtn");
+    
+    submitBtn.innerHTML = 'Mengirim... <span class="spinner"></span>';
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+        let message =
+            "Order Baru\n\n" +
+            "Nama: " + nama + "\n" +
+            "Alamat: " + alamat + "\n" +
+            "Deskripsi:\n" + deskripsi;
+
+        let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+        window.open(url, "_blank");
+
+        submitBtn.innerHTML = 'Kirim ke WhatsApp';
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
